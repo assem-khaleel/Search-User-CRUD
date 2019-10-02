@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('wrapper')
+
     <!-- ============================================================== -->
     <!-- Bread crumb and right sidebar toggle -->
     <!-- ============================================================== -->
@@ -35,8 +36,8 @@
                         <div class="col-md-12">
                             <form action="{{route('user.index')}}" method="get">
                                 <div class="input-group">
-                                    <input type="search" class="form-control" name="name" placeholder="Name" id="search" value="{{request('name')}}">
-                                    <input type="search" class="form-control" name="email" placeholder="Email" id="search" value="{{request('email')}}" >
+                                    <input type="search" class="form-control typehead" name="name" placeholder="Name" id="search" value="{{request('name')}}">
+                                    <input type="search" class="form-control" name="email" placeholder="Email" id="search"  value="{{request('email')}}" >
                                     <span class="input-group-prepend">
                                                       <button type="submit" class="btn btn-info">Search</button>
                                                         <a href="{{ route('user.index') }}" class="btn btn-danger">Reset</a>
@@ -122,7 +123,35 @@
     @push('script')
         <!-- Sweet-Alert  -->
         <script src="{{asset('plugins/sweetalert/sweetalert.min.js')}}"></script>
+
+
         <script>
+
+            $(document).ready(function() {
+                $( "#search" ).autocomplete({
+
+                    source: function(request, response) {
+                        $.ajax({
+                            url: "{{url('search')}}",
+                            data: {
+                                name : request.name
+                            },
+                            dataType: "json",
+                            success: function(data){
+                                var resp = $.map(data,function(obj){
+                                    //console.log(obj.city_name);
+                                    return obj.name;
+                                });
+
+                                response(resp);
+                            }
+                        });
+                    },
+                    minLength: 1
+                });
+            });
+
+
             //Warning Message
             !function ($) {
                 "use strict";

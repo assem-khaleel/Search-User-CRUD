@@ -19,6 +19,7 @@
 <script src="{{asset('js/custom.min.js')}}"></script>
 <script src="{{asset('plugins/select2/dist/js/select2.full.min.js')}}" type="text/javascript"></script>
 
+
 <!-- ============================================================== -->
 <!-- Style switcher -->
 <!-- ============================================================== -->
@@ -26,6 +27,7 @@
 <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
 <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
+
 <script>
     $.ajaxSetup({
         headers: {

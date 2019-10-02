@@ -6,6 +6,7 @@ use Illuminate\Http\Response;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redis;
 
 
 class UserController extends Controller
@@ -21,6 +22,7 @@ class UserController extends Controller
      */
     public function __construct(User $user)
     {
+//            $redis = LaravelRedis::connect();
         $this->user = $user;
     }
 
@@ -31,12 +33,22 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
+
         $name = $request->get('name');
         $email = $request->get('email');
 
+
+
+//        if ($users = Redis::get('users.all')) {
+//            return json_decode($users);
+//        }
         $users = $this->user->where('name','like','%'.$name.'%')
             ->where('email','like','%'.$email.'%')
             ->paginate(15);
+
+
+//        Redis::set('users.all', $users);
+
 
         return view('users.index')->with('data', $users);
     }

@@ -1,5 +1,6 @@
 <?php
-
+//use Illuminate\Support\Facades\Redis;
+//$redis = LaravelRedis::connection();
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,8 +16,14 @@
 //    return view('welcome');
 //});
 
+//Route::get('/', function () {
+//    $users = Redis::incr('users');
+//    return $users;
+//});
+
 Route::get('/','UserController@index')->name('home');
 
 Route::resource('user', 'UserController')->except('show');
+Route::get('search', 'UserController@index');
 
 
